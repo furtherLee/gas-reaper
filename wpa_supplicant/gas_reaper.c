@@ -17,8 +17,8 @@ int reaper_reap_initial_req(struct wpa_supplicant *wpa_s, const u8* sa, const u8
 		    0x00, 0x6c, 0x02, 0x7f, 0x00,
 		    0x00, 0x00 };
   template[dialog_pos] = dialog_token;
-  wpa_printf(MSG_INFO, "Reap a STA" MACSTR, MAC2STR(sa));
-
+  wpa_printf(MSG_INFO, "Reap a STA " MACSTR " request to " MACSTR, MAC2STR(sa), MAC2STR(da));
+  
   return wpa_s->driver->send_action(wpa_s->drv_priv, wpa_s->assoc_freq, 
 				    0, sa, da, da, 
 				    template, len, 1);
