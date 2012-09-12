@@ -11,11 +11,11 @@
 #include "gas_reaper.h"
 
 int reaper_reap_initial_req(struct wpa_supplicant *wpa_s, const u8* sa, const u8* da, u8 dialog_token, int freq){
-  static const int len = 12;
+  static const int len = 13;
   static const int dialog_pos = 1;
   u8 template[] = { 0x04, 0x0b, 0x00, 0x41, 0x00,
-		    0x00, 0x6c, 0x02, 0x7f, 0x00,
-		    0x00, 0x00 };
+		    0x00, 0x00, 0x6c, 0x02, 0x7f, 
+		    0x00, 0x00, 0x00 };
   template[dialog_pos] = dialog_token;
   wpa_printf(MSG_INFO, "Reap a STA " MACSTR " request to " MACSTR, MAC2STR(sa), MAC2STR(da));
   
