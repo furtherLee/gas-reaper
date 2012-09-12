@@ -11,9 +11,15 @@
 #include "gas_reaper.h"
 
 int reaper_reap_initial_req(struct wpa_supplicant *wpa_s, const u8* sa, const u8* da, u8 dialog_token){
-
-  // TODO
-  return 0;
+  static const int len = 12;
+  static const int dialog_pos = 1;
+  u8 template[] = { 0x04, 0x0b, 0x00, 0x41, 0x00,
+		    0x00, 0x6c, 0x02, 0x7f, 0x00,
+		    0x00, 0x00 };
+  template[dialog_pos] = dialog_token;
+  return wpa_s->driver->send_action(wpa_s->drv_priv, wpa_s->assoc_freq, 
+				    0, sa, da, da, 
+				    template, len, 1);
 }
 
 int reaper_reap_comeback_req(struct wpa_supplicant *wpa_s, const u8* sa, const u8* da, u8 dialog_token){
