@@ -12,7 +12,7 @@
 
 int reaper_reap_initial_req(struct wpa_supplicant *wpa_s, const u8* sa, const u8* da, u8 dialog_token, int freq){
   static const int len = 13;
-  static const int dialog_pos = 1;
+  static const int dialog_pos = 2;
   u8 template[] = { 0x04, 0x0b, 0x00, 0x41, 0x00,
 		    0x00, 0x00, 0x6c, 0x02, 0x7f, 
 		    0x00, 0x00, 0x00 };
