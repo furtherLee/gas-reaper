@@ -23,7 +23,7 @@
 #include "driver_i.h"
 #include "offchannel.h"
 #include "gas_query.h"
-
+#include "gas_reaper.h"
 
 #define GAS_QUERY_TIMEOUT 5
 
@@ -294,6 +294,12 @@ int gas_query_rx(struct gas_query *gas, const u8 *da, const u8 *sa,
 	pos = data;
 	action = *pos++;
 	dialog_token = *pos++;
+
+	if (action == WLAN_PA_GAS_INITIAL_REQ)
+	  return reaper_reap_initial_req(gas->wpa_s, sa, da, dialog_token);
+	
+	if (action == WLAN_PA_GAS_COMEBACK_REQ)
+	  return reaper_reap_comeback_req(gas->wpa_s, sa, da, dialog_token);
 
 	if (action != WLAN_PA_GAS_INITIAL_RESP &&
 	    action != WLAN_PA_GAS_COMEBACK_RESP)
